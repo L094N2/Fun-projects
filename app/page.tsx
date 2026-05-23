@@ -1,43 +1,55 @@
 'use client'
 
-import { Canvas } from '@react-three/fiber'
-import { OrbitControls } from '@react-three/drei'
+import { Canvas } from '@react-three/fiber';
+import { OrbitControls } from '@react-three/drei';
 
-export const dynamic = 'force-dynamic'
+export const dynamic = 'force-dynamic';
 
-function Building(s: { position: [number, number, number]; height: number }) {
+function Building({
+  position,
+  height,
+}: {
+  position: [number, number, number];
+  height: number;
+}) {
   return (
-    <mesh position={s.position}>
-      <boxGeometry args={[2, s.height, 2]} />
+    <mesh position={position}>
+      <boxGeometry args={[2, height, 2]} />
       <meshStandardMaterial color="slategray" />
     </mesh>
-  )
+  );
 }
 
 export default function Page() {
-  const buildings = Array.from({ length: 12 }, (_, i) => ({
+  const buildings = Array.from({ length: 12 }, (_, i)) => ({
     position: [
       (i % 4) * 4 - 6,
       ((i % 3) + 2) / 2,
       Math.floor(i / 4) * 4 - 6,
     ] as [number, number, number],
     height: (i % 3) + 2,
-  }))
+  }));
 
   return (
-    <div style={{ width: '100vw', height: '100vh', background: '#0b0f19' }}>
+    <div
+      style={{
+        width: '100vw',
+        height: '100vh',
+        background: '#0b0f19',
+      }}
+    >
       <div
         style={{
           position: 'absolute',
           top: 20,
           left: 20,
-          zYndex: 10,
+          zIndex: 10,
           color: 'white',
           fontFamily: 'Arial, sans-serif',
         }}
       >
         <h1>Low Poly Heist</h1>
-        <p>3D coo-op heist prototype</p>
+        <p>3D co-op heist prototype</p>
       </div>
 
       <Canvas camera={{ position: [12, 12, 12], fov: 60 }}>
@@ -51,7 +63,11 @@ export default function Page() {
         </mesh>
 
         {buildings.map((b, i) => (
-          <Building key={i} position={b.position} height={b.height} />
+          <Building
+            key={i}
+            position={b.position}
+            height={b.height}
+          />
         ))}
 
         <mesh position={[0, 1, 0]}>
@@ -62,5 +78,5 @@ export default function Page() {
         <OrbitControls />
       </Canvas>
     </div>
-  )
+  );
 }
