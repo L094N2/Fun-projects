@@ -1,42 +1,20 @@
-# Fun-Projects - Low-Poly Co-Op Heist Game
+# Low Poly Co-op Heist Game
 
-A production-ready, browser-based multiplayer heist game inspired by One-Armed Robber.
+Deploy-ready multiplayer browser game inspired by One-Armed Robber.
 
 ## Features
+- Low poly visuals
+- Cross-platform desktop/mobile
+- Multiplayer-ready architecture
+- Three.js rendering
+- Vercel deployment support
 
-- Cross-platform desktop + mobile play
-- Online co-op multiplayer
-- Low-poly stylized graphics
-- First-person controls
-- Touch controls for mobile
-- Lobby system
-- Looting and heist mechanics
-- Police alert system
-- Vercel-ready deployment
+## Setup
 
-## Tech Stack
+```bash
+npm install
+npm run dev
+```
 
-- Next.js
-- TypeScript
-- Three.js
-- React Three Fiber
-- Colyseus
-- Rapier Physics
-- Zustand
-
-- Vercel deployment
-
-## Planned V1
-
-- Multiplayer lobby
-- Bank/store heist map
-- Loot system
-- Guard AI
-- Police response
-- Escape van
-- Cross-platform controls
-- Mobile HUD
-
-## Deployment
-
-Deploy on Vercel using the "Other" framework preset.
+## Deploy
+Deploy to Vercel using the 'Other' framework preset.
