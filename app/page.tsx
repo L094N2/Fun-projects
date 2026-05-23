@@ -2,7 +2,7 @@
 
 export const dynamic = 'force-dynamic'
 
-import dynamic from 'next/dynamic'
+import nextDynamic from 'next/dynamic'
 
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Box, Text } from '@react-three/drei'
@@ -36,7 +36,7 @@ function GameScene() {
   )
 }
 
-const DynamicGameScene = dynamic(
+const DynamicGameScene = nextDynamic(
   () => Promise.resolve(GameScene),
   { ssr: false }
 )
