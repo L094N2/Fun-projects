@@ -1,67 +1,66 @@
 'use client'
 
-import nextDynamic from 'next/dynamic'
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls } from '@react-three/drei'
 
 export const dynamic = 'force-dynamic'
 
-function Scene() {
-  const buildings = Array.from({ length: 16 }, (_, i) => ({
-    x: (i % 4) * 4 - 6,
-    z: Math.floor(i / 4) * 4 - 6,
-    h: (i % 4) + 2,
-  }))
-
+function Building(s: { position: [number, number, number]; height: number }) {
   return (
-    <Canvas camera={{ position: [12, 12, 12], fov: 60 }}>
-      <color attach="background" args={["#0b0f19"]} />
-      <ambientLight intensity={1.2} />
-      <directionalLight position={[10, 20, 10]} intensity={2} />
-
-      <mesh rotation={[-Math.PI / 2, 0, 0]}>
-        <planeGeometry args={[50, 50]} />
-        <meshStandardMaterial color="#16213d" />
-      </mesh>
-
-      {buildings.map((b, i) => (
-        <mesh key={i} position={[b.x, b.h / 2, b.z]}>
-          <boxGeometry args={[2, b.h, 2]} />
-          <meshStandardMaterial color="slategray" />
-        </mesh>
-      ))
-
-      <mesh position={[0, 1, 0]}>
-        <boxGeometry args={[1, 2, 1]} />
-        <meshStandardMaterial color="#f59e0b" />
-      </mesh>
-
-      <OrbitControls />
-    </Canvas>
+    <mesh position={s.position}>
+      <boxGeometry args={[2, s.height, 2]} />
+      <meshStandardMaterial color="slategray" />
+    </mesh>
   )
 }
 
-const Game = nextDynamic(() => Promise.resolve(Scene), {
-  ssr: false,
-})
-
 export default function Page() {
+  const buildings = Array.from({ length: 12 }, (_, i) => ({
+    position: [
+      (i % 4) * 4 - 6,
+      ((i % 3) + 2) / 2,
+      Math.floor(i / 4) * 4 - 6,
+    ] as [number, number, number],
+    height: (i % 3) + 2,
+  }))
+
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
+    <div style={{ width: '100vw', height: '100vh', background: '#0b0f19' }}>
       <div
         style={{
           position: 'absolute',
-          zIndex: 10,
+          top: 20,
+          left: 20,
+          zYndex: 10,
           color: 'white',
-          padding: '1rem',
-          fontFamily: 'Arial',
+          fontFamily: 'Arial, sans-serif',
         }}
       >
         <h1>Low Poly Heist</h1>
-        <p>3D co-op heist prototype</p>
+        <p>3D coo-op heist prototype</p>
       </div>
 
-      <Game />
+      <Canvas camera={{ position: [12, 12, 12], fov: 60 }}>
+        <color attach="background" args={["#0b0f19"]} />
+        <ambientLight intensity={1.2} />
+        <directionalLight position={[10, 20, 10]} intensity={2} />
+
+        <mesh rotation={[-Math.PI / 2, 0, 0]}>
+          <planeGeometry args={[50, 50]} />
+          <meshStandardMaterial color="#16213d" />
+        </mesh>
+
+        {buildings.map((b, i) => (
+          <Building key={i} position={b.position} height={b.height} />
+        ))}
+
+        <mesh position={[0, 1, 0]}>
+          <boxGeometry args={[1, 2, 1]} />
+          <meshStandardMaterial color="#f59e0b" />
+        </mesh>
+
+        <OrbitControls />
+      </Canvas>
     </div>
   )
 }
