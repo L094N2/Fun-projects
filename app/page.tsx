@@ -11,7 +11,7 @@ export default function Home() {
   const startPos = useMemo(() => ({ x: 2, y: 2 }), [])
   const [player, setPlayer] = useState(startPos)
   const [loot, setLoot] = useState(0)
-  const [message, setMessage] = useState('Steal the gold and escape the police')
+  const [message, setMessage] = useState('Steal the gold and escape to the van')
   const [alert, setAlert] = useState(false)
 
   const bank = { x: 16, y: 4 }
@@ -27,23 +27,6 @@ export default function Home() {
     ],
     []
   )
-
-  useEffect(() => {
-    const onKey = (e: KeyboardEvent) => {
-      let dx = 0
-      let dy = 0
-
-      if (e.key === 'w' || e.key === 'ArrowUp') dy = -1
-      if (e.key === 's' || e.key === 'ArrowDown') dy = 1
-      if (e.key === 'a' || e.key === 'ArrowLeft') dx = -1
-      if (e.key === 'd' || e.key === 'ArrowRight') dx = 1
-
-      move(dx, dy)
-    }
-
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [player, loot, alert])
 
   const move = (dx: number, dy: number) => {
     setPlayer((p) => {
@@ -69,9 +52,26 @@ export default function Home() {
     })
   }
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      let dx = 0
+      let dy = 0
+
+      if (e.key === 'w' || e.key === 'ArrowUp') dy = -1
+      if (e.key === 's' || e.key === 'ArrowDown') dy = 1
+      if (e.key === 'a' || e.key === 'ArrowLeft') dx = -1
+      if (e.key === 'd' || e.key === 'ArrowRight') dx = 1
+
+      move(dx, dy)
+    }
+
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [loot, alert])
+
   const cells = []
 
-  for (let y = 0; y < MAP_SIZE;y++) {
+  for (let y = 0; y < MAP_SIZE; y++) {
     for (let x = 0; x < MAP_SIZE; x++) {
       let bg = '#1a1a1a'
 
@@ -87,31 +87,24 @@ export default function Home() {
       }
 
       cells.push(
-        <div
-          key={`${x}-${y}`}
-          style={{
-            width: '100%',
-            height: '100%',
-            background: bg,
-            border: '1px solid #2a2a2a',
-            borderRadius: 6,
-          }}
-        />
+        <div key={`${x}-${y}`} style={{
+          width: '100%',
+          height: '100%',
+          background: bg,
+          border: '1px solid #2a2a2a',
+          borderRadius: 6,
+        }} />
       )
     }
   }
 
   const controls = [
-    [
-      { label: '▱', x: 0, y: -1 },
-    ],
+    [{ label: '▱', x: 0, y: -1 }],
     [
       { label: '◀', x: -1, y: 0 },
       { label: '▾', x: 1, y: 0 },
     ],
-    [
-      { label: '➹', x: 0, y: 1 },
-    ],
+    [{ label: '▽', x: 0, y: 1 }],
   ]
 
   return (
@@ -124,10 +117,8 @@ export default function Home() {
         padding: '1rem',
       }}
     >
-      <div style={{ marginBottom: '1rem' }}>
-        <h1 style={{ margin: 0, fontSize: '3rem' }}>Low Poly Heist</h1>
-        <p>Move with WASD or the mobile controls.0Steal gold and escape to the van.</p>
-      </div>
+      <h1>Low Poly Heist</h1>
+      <p>Move with WASD or touch controls. Collect the gold and escape to the van.</p>
 
       <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
         <div>
@@ -148,7 +139,7 @@ export default function Home() {
             {controls.map((row, i) => (
               <div key={i} style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center' }}>
                 {row.map((b) => (
-                  <buton
+                  <button
                     key={b.label}
                     onClick={() => move(b.x, b.y)}
                     style={{
@@ -165,7 +156,7 @@ export default function Home() {
                   </button>
                 ))}
               </div>
-            ))
+            ))}
           </div>
         </div>
 
@@ -179,15 +170,12 @@ export default function Home() {
         >
           <h2>Mission</h2>
           <p>{message}</p>
-
-          <p ><strong>Loot:</strong> {loot} / {LOOT_TARGET}</p>
+          <p><strong>Loot:</strong> {loot} / {LOOT_TARGET}</p>
           <p><strong>Alert:</strong> {alert ? 'POLICE ACTIVE' : 'UNDETECTED'}</p>
-
           <ul style={{ lineHeight: 1.8 }}>
-            <li>矗底店店店店</li>
-            <li>💥 Blue = Bank</li>
-            <li>📶 Gold = Loot</li>
-            <li>🟕 Car = Exit Van</li>
+            <li>🔥 Blue = Bank</li>
+            <li>💰 Gold = Loot</li>
+            <li>🚙 Green = Exit Van</li>
           </ul>
         </div>
       </div>
