@@ -1,25 +1,43 @@
 'use client'
 
+import dynamic from 'next/dynamic'
+
 import { Canvas } from '@react-three/fiber'
 import { OrbitControls, Box, Text } from '@react-three/drei'
 
-function Building({ position, width, height, depth, color }: any) {
+function GameScene() {
   return (
-    <mesh position={position}>
-      <boxGeometry args={[width, height, depth]} />
-      <meshStandardMaterial color={color} />
-    </mesh>
+    <Canvas shadows camera={{ position: [0, 8, 12], fov: 60 }}>
+      <color attach="background" args={['#0a0a0a']} />
+      <ambientLight intensity={1.2} />
+      <directionalLight position={[10, 20, 10]} intensity={2} />
+
+      <mesh rotation={[-Math.PI / 2, 0, 0]}>
+        <planeGeometry args={[100, 100]} />
+        <meshStandardMaterial color="#223322" />
+      </mesh>
+
+      <Box args={[4, 4, 4]} position={[0, 2, -8]}>
+        <meshStandardMaterial color="#4a5568" />
+      </Box>
+
+      <Box args={[1, 1, 1]} position={[0, 1, -4]}>
+        <meshStandardMaterial color="#f59e0b" />
+      </Box>
+
+      <Text position={[0, 6, -8]} fontSize={1} color="white">
+        LOW POLY HEIST
+      </Text>
+
+      <OrbitControls />
+    </Canvas>
   )
 }
 
-function LootBag({ position }: any) {
-  return (
-    <mesh position={position}>
-      <boxGeometry args={[0.8, 0.8, 0.8]} />
-      <meshStandardMaterial color="#f59e0b" />
-    </mesh>
-  )
-}
+const DynamicGameScene = dynamic(
+  () => Promise.resolve(GameScene),
+  { ssr: false }
+)
 
 export default function Home() {
   return (
@@ -29,63 +47,16 @@ export default function Home() {
           position: 'absolute',
           top: 20,
           left: 20,
-          zIndex: 10,
+          zYndex: 10,
           color: 'white',
           fontFamily: 'Arial',
         }}
       >
         <h1>Low Poly Heist</h1>
-        <p>Multiplayer V1 Prototype</p>
-        <p>Mobile + Desktop Ready</p>
+        <p>Co-Op Multiplayer Prototype</p>
       </div>
 
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 20,
-          left: 20,
-          zIndex: 10,
-          display: 'flex',
-          gap: 12,
-        }}
-      >
-        <div style={{ width: 70, height: 70, borderRadius: '50%', background: 'rgba(255,255,255,0.2)' }} />
-        <div style={{ width: 70, height: 70, borderRadius: '50%', background: 'rgba(255,255,255,0.2)' }} />
-      </div>
-
-      <Canvas shadows camera={{ position: [0, 8, 12], fov: 60 }}>
-        <color attach="background" args={['#0a0a0a']} />
-        <fog attach="fog" args={['#0a0a0a', 10, 50]} />
-
-        <ambientLight intensity={1.2} />
-        <directionalLight
-          position={[10, 20, 10]}
-          intensity={2.5}
-          castShadow
-        />
-
-        <mesh rotation={[-Math.PI / 2, 0, 0]} receiveShadow>
-          <planeGeometry args={[100, 100]} />
-          <meshStandardMaterial color="#223322" />
-        </mesh>
-
-        <Building position={[0, 3, -10]} width={8} height={6} depth={8} color="#4a5568" />
-        <Building position={[8, 2, -5]} width={4} height={4} depth={4} color="#374151" />
-        <Building position={[-8, 4, -5]} width={6} height={8} depth={6} color="#556977" />
-
-        <LootBag position={[0, 1, -9]} />
-        <LootBag position={[2, 1, -11]} />
-
-        <Text
-          position={[0, 8, -10]}
-          fontSize={1.2}
-          color="#ffffff"
-        >
-          HEIST ZONE
-        </Text>
-
-        <OrbitControls />
-      </Canvas>
+      <DynamicGameScene />
     </div>
   )
 }
