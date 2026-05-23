@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls } from '@react-three/drei';
@@ -21,7 +21,7 @@ function Building({
 }
 
 export default function Page() {
-  const buildings = Array.from({ length: 12 }, (_, i)) => ({
+  const buildings = Array.from({ length: 12 }, (_, i) => ({
     position: [
       (i % 4) * 4 - 6,
       ((i % 3) + 2) / 2,
@@ -38,16 +38,14 @@ export default function Page() {
         background: '#0b0f19',
       }}
     >
-      <div
-        style={{
-          position: 'absolute',
-          top: 20,
-          left: 20,
-          zIndex: 10,
-          color: 'white',
-          fontFamily: 'Arial, sans-serif',
-        }}
-      >
+      <div style={{
+        position: 'absolute',
+        top: 20,
+        left: 20,
+        zIndex: 10,
+        color: 'white',
+        fontFamily: 'Arial, sans-serif',
+      }}>
         <h1>Low Poly Heist</h1>
         <p>3D co-op heist prototype</p>
       </div>
