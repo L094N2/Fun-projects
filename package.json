@@ -15,7 +15,7 @@
     "@react-three/fiber": "^8.17.10",
     "@react-three/drei": "^9.122.0",
     "@react-three/rapier": "^1.4.0",
-    "zwstand": "^4.5.5",
+    "zustand": "^4.5.5",
     "colyseus.js": "^0.16.12",
     "socket.io-client": "^4.8.1"
   },
