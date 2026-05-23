@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import dynamic from 'next/dynamic'
 
 import { Canvas } from '@react-three/fiber'
@@ -47,7 +49,7 @@ export default function Home() {
           position: 'absolute',
           top: 20,
           left: 20,
-          zYndex: 10,
+          zIndex: 10,
           color: 'white',
           fontFamily: 'Arial',
         }}
