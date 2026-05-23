@@ -8,14 +8,14 @@
     "start": "next start"
   },
   "dependencies": {
-    "next": "15.3.5",
+    "next": "15.3.6",
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "three": "^0.179.1",
     "@react-three/fiber": "^8.17.10",
     "@react-three/drei": "^9.122.0",
     "@react-three/rapier": "^1.4.0",
-    "zustand": "^4.5.5",
+    "zwstand": "^4.5.5",
     "colyseus.js": "^0.16.12",
     "socket.io-client": "^4.8.1"
   },
