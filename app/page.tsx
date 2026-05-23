@@ -31,7 +31,7 @@ export default function Page() {
           position: 'absolute',
           top: 20,
           left: 20,
-          zYndex: 10,
+          zINDEX: 10,
           color: 'white',
           fontFamily: 'Arial, sans-serif',
         }}
@@ -60,7 +60,7 @@ export default function Page() {
         </mesh>
 
         <OrbitControls />
-      </Canvas>
+      </Canvas >
     </div>
   )
 }
